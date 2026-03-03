@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cafe Chai Sutta Bar</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Bebas+Neue&family=Inter:wght@400;600&display=swap');
+
+  :root {
+    --brown: #3B1F0B;
+    --orange: #D4731A;
+    --cream: #FFF5E1;
+    --dark: #1a0d03;
+    --mid: #5a3015;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--brown);
+    color: var(--cream);
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 999;
+    background: rgba(26,13,3,0.92);
+    backdrop-filter: blur(6px);
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 14px 5%;
+    border-bottom: 2px solid var(--orange);
+  }
+  .nav-logo { font-family: 'Black Ops One', cursive; font-size: 1.4rem; color: var(--orange); letter-spacing: 1px; }
+  .nav-links { display: flex; gap: 28px; list-style: none; }
+  .nav-links a { color: var(--cream); text-decoration: none; font-size: 0.85rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; transition: color .2s; }
+  .nav-links a:hover { color: var(--orange); }
+  .nav-cta { background: var(--orange); color: var(--dark); font-weight: 700; padding: 8px 20px; border-radius: 4px; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; text-decoration: none; transition: opacity .2s; }
+  .nav-cta:hover { opacity: .85; }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
+    padding: 100px 5% 60px;
+    position: relative;
+    background: radial-gradient(ellipse at center, #5a3015 0%, #3B1F0B 55%, #1a0d03 100%);
+    overflow: hidden;
+  }
+
+  /* steam animation */
+  .steam-wrap { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
+  .steam { position: absolute; bottom: 0; width: 3px; background: linear-gradient(to top, transparent, rgba(255,245,225,.12), transparent); border-radius: 50%; animation: rise 6s ease-in infinite; }
+  .steam:nth-child(1) { left: 15%; animation-delay: 0s; height: 60%; }
+  .steam:nth-child(2) { left: 35%; animation-delay: 1.5s; height: 80%; }
+  .steam:nth-child(3) { left: 55%; animation-delay: 3s; height: 50%; }
+  .steam:nth-child(4) { left: 75%; animation-delay: 2s; height: 70%; }
+  .steam:nth-child(5) { left: 90%; animation-delay: 4s; height: 55%; }
+  @keyframes rise { 0%{transform:translateY(0) scaleX(1);opacity:0} 20%{opacity:1} 80%{opacity:.4} 100%{transform:translateY(-100vh) scaleX(3);opacity:0} }
+
+  .hero-badge {
+    display: inline-block;
+    background: var(--orange);
+    color: var(--dark);
+    font-size: 0.72rem; font-weight: 700; letter-spacing: 2px;
+    padding: 5px 16px; border-radius: 2px; text-transform: uppercase;
+    margin-bottom: 20px;
+    animation: fadeDown .6s ease both;
+  }
+
+  .hero-title {
+    font-family: 'Black Ops One', cursive;
+    font-size: clamp(3.5rem, 10vw, 8rem);
+    line-height: .95;
+    color: var(--cream);
+    text-shadow: 4px 4px 0 var(--orange), 8px 8px 0 rgba(0,0,0,.4);
+    animation: fadeDown .7s .1s ease both;
+    letter-spacing: 2px;
+  }
+
+  .hero-title span { color: var(--orange); }
+
+  .hero-bong {
+    font-size: clamp(1rem, 2.5vw, 1.6rem);
+    color: rgba(255,245,225,.55);
+    margin-top: 10px;
+    letter-spacing: 4px;
+    animation: fadeDown .7s .2s ease both;
+  }
+
+  .hero-sub {
+    max-width: 520px;
+    margin: 24px auto 0;
+    font-size: 1rem;
+    color: rgba(255,245,225,.75);
+    line-height: 1.7;
+    animation: fadeDown .7s .3s ease both;
+  }
+
+  .hero-btns {
+    display: flex; gap: 14px; flex-wrap: wrap; justify-content: center;
+    margin-top: 36px;
+    animation: fadeDown .7s .4s ease both;
+  }
+  .btn-primary {
+    background: var(--orange); color: var(--dark);
+    font-weight: 700; font-size: .9rem; letter-spacing: 1px;
+    padding: 14px 32px; border-radius: 4px; text-decoration: none; text-transform: uppercase;
+    transition: transform .2s, box-shadow .2s;
+    box-shadow: 0 4px 20px rgba(212,115,26,.4);
+  }
+  .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(212,115,26,.55); }
+  .btn-outline {
+    border: 2px solid var(--cream); color: var(--cream);
+    font-weight: 700; font-size: .9rem; letter-spacing: 1px;
+    padding: 14px 32px; border-radius: 4px; text-decoration: none; text-transform: uppercase;
+    transition: background .2s, color .2s;
+  }
+  .btn-outline:hover { background: var(--cream); color: var(--dark); }
+
+  .hero-stats {
+    display: flex; gap: 40px; flex-wrap: wrap; justify-content: center;
+    margin-top: 56px;
+    animation: fadeDown .7s .5s ease both;
+  }
+  .stat { text-align: center; }
+  .stat-num { font-family: 'Bebas Neue', cursive; font-size: 2.4rem; color: var(--orange); line-height: 1; }
+  .stat-label { font-size: .7rem; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,245,225,.5); margin-top: 2px; }
+
+  /* ── DIVIDER ── */
+  .divider { width: 100%; text-align: center; padding: 12px 0; overflow: hidden; }
+  .divider span { font-family: 'Bebas Neue', cursive; letter-spacing: 12px; color: rgba(212,115,26,.3); font-size: 1.1rem; }
+
+  /* ── SECTION COMMON ── */
+  section { padding: 90px 5%; }
+  .section-label {
+    font-size: .7rem; letter-spacing: 4px; text-transform: uppercase;
+    color: var(--orange); margin-bottom: 10px; font-weight: 700;
+  }
+  .section-title {
+    font-family: 'Black Ops One', cursive;
+    font-size: clamp(2.2rem, 5vw, 3.8rem);
+    line-height: 1;
+    color: var(--cream);
+    margin-bottom: 14px;
+  }
+
+  /* ── MENU ── */
+  #menu { background: var(--dark); }
+  .menu-header { text-align: center; margin-bottom: 56px; }
+  .menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+    max-width: 1100px; margin: 0 auto;
+  }
+  .menu-card {
+    background: var(--brown);
+    border: 1px solid rgba(212,115,26,.2);
+    border-radius: 8px;
+    padding: 28px 24px;
+    position: relative; overflow: hidden;
+    transition: transform .3s, border-color .3s, box-shadow .3s;
+    cursor: default;
+  }
+  .menu-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0;
+    width: 4px; height: 100%;
+    background: var(--orange);
+    transform: scaleY(0); transform-origin: bottom;
+    transition: transform .3s;
+  }
+  .menu-card:hover { transform: translateY(-6px); border-color: var(--orange); box-shadow: 0 12px 40px rgba(0,0,0,.4); }
+  .menu-card:hover::before { transform: scaleY(1); }
+  .menu-emoji { font-size: 2.4rem; margin-bottom: 12px; }
+  .menu-name { font-family: 'Bebas Neue', cursive; font-size: 1.6rem; letter-spacing: 2px; color: var(--cream); }
+  .menu-desc { font-size: .82rem; color: rgba(255,245,225,.6); margin-top: 6px; line-height: 1.6; }
+  .menu-price { font-family: 'Black Ops One', cursive; font-size: 1.5rem; color: var(--orange); margin-top: 16px; }
+  .menu-tag {
+    position: absolute; top: 16px; right: 16px;
+    background: var(--orange); color: var(--dark);
+    font-size: .6rem; font-weight: 700; letter-spacing: 1px;
+    padding: 3px 8px; border-radius: 2px; text-transform: uppercase;
+  }
+
+  /* ── TESTIMONIAL ── */
+  #testimonial {
+    background: linear-gradient(135deg, var(--mid) 0%, var(--brown) 100%);
+    text-align: center;
+    position: relative; overflow: hidden;
+  }
+  #testimonial::before {
+    content: '"';
+    font-family: 'Black Ops One', cursive;
+    font-size: 30rem; color: rgba(212,115,26,.05);
+    position: absolute; top: -80px; left: 50%; transform: translateX(-50%);
+    line-height: 1; pointer-events: none;
+  }
+  .testi-stars { color: var(--orange); font-size: 1.4rem; margin-bottom: 20px; letter-spacing: 4px; }
+  .testi-quote {
+    font-family: 'Bebas Neue', cursive;
+    font-size: clamp(1.6rem, 4vw, 2.8rem);
+    line-height: 1.2; max-width: 800px; margin: 0 auto;
+    color: var(--cream); letter-spacing: 2px;
+  }
+  .testi-author { margin-top: 28px; font-size: .8rem; letter-spacing: 3px; color: rgba(255,245,225,.5); text-transform: uppercase; }
+  .testi-rating-box {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: rgba(212,115,26,.15); border: 1px solid rgba(212,115,26,.3);
+    padding: 10px 24px; border-radius: 40px; margin-top: 36px;
+    font-size: .85rem; color: var(--cream);
+  }
+  .testi-rating-box strong { font-family: 'Bebas Neue', cursive; font-size: 1.4rem; color: var(--orange); }
+
+  /* ── ABOUT + CONTACT ── */
+  #about { background: var(--dark); }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; max-width: 1100px; margin: 0 auto; align-items: start; }
+  @media(max-width:768px){ .about-grid{grid-template-columns:1fr;} }
+  .about-text p { color: rgba(255,245,225,.7); line-height: 1.8; margin-bottom: 16px; font-size: .95rem; }
+  .about-info { margin-top: 30px; display: flex; flex-direction: column; gap: 12px; }
+  .info-row { display: flex; align-items: flex-start; gap: 12px; font-size: .88rem; color: rgba(255,245,225,.7); }
+  .info-row .icon { color: var(--orange); font-size: 1rem; min-width: 20px; }
+  .info-row a { color: rgba(255,245,225,.7); text-decoration: none; }
+  .info-row a:hover { color: var(--orange); }
+
+  /* contact form */
+  .contact-form { display: flex; flex-direction: column; gap: 14px; }
+  .contact-form input,
+  .contact-form textarea {
+    background: rgba(255,245,225,.06);
+    border: 1px solid rgba(212,115,26,.3);
+    border-radius: 4px; padding: 12px 16px;
+    color: var(--cream); font-family: 'Inter', sans-serif; font-size: .9rem;
+    outline: none; transition: border-color .2s;
+    resize: vertical;
+  }
+  .contact-form input:focus,
+  .contact-form textarea:focus { border-color: var(--orange); }
+  .contact-form input::placeholder,
+  .contact-form textarea::placeholder { color: rgba(255,245,225,.35); }
+  .contact-form button {
+    background: var(--orange); color: var(--dark);
+    border: none; font-weight: 700; font-size: .9rem; letter-spacing: 1px;
+    padding: 14px; border-radius: 4px; cursor: pointer; text-transform: uppercase;
+    transition: opacity .2s, transform .2s;
+    font-family: 'Inter', sans-serif;
+  }
+  .contact-form button:hover { opacity: .88; transform: translateY(-2px); }
+  .form-success {
+    display: none; background: rgba(212,115,26,.15); border: 1px solid var(--orange);
+    border-radius: 4px; padding: 14px; text-align: center; font-size: .88rem; color: var(--orange);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--dark);
+    border-top: 2px solid rgba(212,115,26,.25);
+    padding: 36px 5%;
+    display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 20px;
+  }
+  .footer-logo { font-family: 'Black Ops One', cursive; font-size: 1.3rem; color: var(--orange); }
+  .footer-bong { font-size: .75rem; color: rgba(255,245,225,.35); margin-top: 2px; }
+  .footer-copy { font-size: .75rem; color: rgba(255,245,225,.35); text-align: right; }
+  .footer-links { display: flex; gap: 20px; }
+  .footer-links a { color: rgba(255,245,225,.45); font-size: .78rem; text-decoration: none; transition: color .2s; }
+  .footer-links a:hover { color: var(--orange); }
+
+  /* ── SCROLL REVEAL ── */
+  .reveal { opacity: 0; transform: translateY(40px); transition: opacity .6s ease, transform .6s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeDown { from{opacity:0;transform:translateY(-20px)} to{opacity:1;transform:translateY(0)} }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--dark); }
+  ::-webkit-scrollbar-thumb { background: var(--orange); border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">☕ CHAI SUTTA BAR</div>
+  <ul class="nav-links">
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#testimonial">Reviews</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#about" class="nav-cta">Visit Us</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="steam-wrap">
+    <div class="steam"></div><div class="steam"></div><div class="steam"></div>
+    <div class="steam"></div><div class="steam"></div>
+  </div>
+  <div class="hero-badge">📍 Madhuban More, Jhargram, WB</div>
+  <h1 class="hero-title">CAFE<br><span>CHAI</span><br>SUTTA BAR</h1>
+  <p class="hero-bong">ক্যাফে চাই সূত্র বার</p>
+  <p class="hero-sub">Asli tapri ka maza. Koi dikhawa nahi — bas ek kadak chai, khuli hawa, aur dil ka sukoon.</p>
+  <div class="hero-btns">
+    <a href="#menu" class="btn-primary">☕ Dekho Menu</a>
+    <a href="#about" class="btn-outline">📞 Aa Milte Hain</a>
+  </div>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-num">4.3</div><div class="stat-label">Google Rating</div></div>
+    <div class="stat"><div class="stat-num">507+</div><div class="stat-label">Reviews</div></div>
+    <div class="stat"><div class="stat-num">₹1</div><div class="stat-label">Starting Price</div></div>
+    <div class="stat"><div class="stat-num">100%</div><div class="stat-label">Desi Vibes</div></div>
+  </div>
+</section>
+
+<div class="divider"><span>• CHAI • SUTTA • MASTI • DOSTI • JHARGRAM •</span></div>
+
+<!-- MENU -->
+<section id="menu">
+  <div class="menu-header reveal">
+    <p class="section-label">Hamara Menu</p>
+    <h2 class="section-title">KYA PEEYOGE AAJ?</h2>
+    <p style="color:rgba(255,245,225,.55);max-width:500px;margin:0 auto;font-size:.9rem;line-height:1.7">
+      Sab kuch garam, sab kuch fresh. Tapri se seedha aapke haath mein.
+    </p>
+  </div>
+  <div class="menu-grid">
+    <div class="menu-card reveal">
+      <div class="menu-tag">Best Seller</div>
+      <div class="menu-emoji">☕</div>
+      <div class="menu-name">Kadak Cutting Chai</div>
+      <div class="menu-desc">Ek ghoot mein zindagi badal de. Strong, spiced, no-nonsense tapri special.</div>
+      <div class="menu-price">₹10</div>
+    </div>
+    <div class="menu-card reveal">
+      <div class="menu-emoji">🌿</div>
+      <div class="menu-name">Masala Chai</div>
+      <div class="menu-desc">Adrak, elaichi, laung — sab sahi proportion mein. Nani ki yaad dilaye.</div>
+      <div class="menu-price">₹20</div>
+    </div>
+    <div class="menu-card reveal">
+      <div class="menu-tag">New</div>
+      <div class="menu-emoji">🧋</div>
+      <div class="menu-name">Cold Coffee</div>
+      <div class="menu-desc">Garmi ke dinon ka saathi. Thick, chilled, aur bilkul sahi matra mein coffee.</div>
+      <div class="menu-price">₹60</div>
+    </div>
+    <div class="menu-card reveal">
+      <div class="menu-emoji">🥐</div>
+      <div class="menu-name">Bun Maska + Chai</div>
+      <div class="menu-desc">Classic tapri combo. Toasted bun, makhan aur ek kadak chai — perfect pair.</div>
+      <div class="menu-price">₹30</div>
+    </div>
+    <div class="menu-card reveal">
+      <div class="menu-emoji">🍫</div>
+      <div class="menu-name">Chocolate Shake</div>
+      <div class="menu-desc">Bachpan ki yaadein, ek bade glass mein. Rich, creamy, seedha dil tak.</div>
+      <div class="menu-price">₹80</div>
+    </div>
+    <div class="menu-card reveal">
+      <div class="menu-tag">Fan Fav</div>
+      <div class="menu-emoji">🫙</div>
+      <div class="menu-name">Special Tapri Special</div>
+      <div class="menu-desc">Secret recipe. Secret ingredients. Aana padega jaanne ke liye.</div>
+      <div class="menu-price">₹50</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><span>• GARAM • FRESH • ASLI • DESI •</span></div>
+
+<!-- TESTIMONIAL -->
+<section id="testimonial">
+  <div class="reveal">
+    <div class="testi-stars">★★★★☆</div>
+    <p class="testi-quote">"Jhargram mein itni acchi chai nahi mili kabhi. Ye jagah dil ko chain deti hai."</p>
+    <p class="testi-author">— Rahul M., Google Review • Jhargram Local</p>
+    <div>
+      <div class="testi-rating-box">
+        <strong>4.3</strong> Stars on Google &nbsp;|&nbsp; <strong>507</strong> Reviews &nbsp;|&nbsp; ₹1–₹200 per person
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT + CONTACT -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <p class="section-label">Hamare Baare Mein</p>
+      <h2 class="section-title">EK CUP MEIN PURI KAHANI</h2>
+      <p>Hum ek sapne se shuru hue — ek aisi jagah banana jo fancy nahi, par apni lage. Jahan chai sirf peene ki cheez nahi, balki rukne ka ek bahana ho.</p>
+      <p>Madhuban More ki galiyon mein, Jhargram ke dil mein, Cafe Chai Sutta Bar woh jagah hai jahan dost milte hain, baatein hoti hain, aur chai kabhi thandi nahi hoti.</p>
+      <p>₹1 se shuru karke ₹200 tak — har cheez affordable, har cheez asli.</p>
+      <div class="about-info">
+        <div class="info-row"><span class="icon">📍</span><span>Madhuban More, Jhargram, West Bengal 721507</span></div>
+        <div class="info-row"><span class="icon">📞</span><a href="tel:09002696524">090026 96524</a></div>
+        <div class="info-row"><span class="icon">🕘</span><span>Opens 9:00 AM · Mon–Sun (Closed Tue)</span></div>
+        <div class="info-row"><span class="icon">💰</span><span>₹1 – ₹200 per person</span></div>
+        <div class="info-row"><span class="icon">🌐</span><a href="https://facebook.com" target="_blank">facebook.com/CafeChai</a></div>
+        <div class="info-row"><span class="icon">🚗</span><span>Dine-in · Drive-through · No-contact Delivery</span></div>
+      </div>
+    </div>
+    <div class="reveal">
+      <p class="section-label">Likho Kuch</p>
+      <h2 class="section-title" style="font-size:2rem;margin-bottom:24px">BAAT KARO HUMSE</h2>
+      <form class="contact-form" onsubmit="submitForm(event)">
+        <input type="text" id="fname" placeholder="Aapka Naam *" required>
+        <input type="tel" id="fphone" placeholder="Phone Number">
+        <input type="email" id="femail" placeholder="Email (optional)">
+        <textarea id="fmsg" rows="4" placeholder="Koi sawaal? Koi shikayat? Ya bas ek shukriya? ✍️" required></textarea>
+        <button type="submit">📨 Bhejo Message</button>
+        <div class="form-success" id="formSuccess">✅ Shukriya! Hamara chai-wallah aapse jald sampark karega. ☕</div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-logo">☕ CAFE CHAI SUTTA BAR</div>
+    <div class="footer-bong">ক্যাফে চাই সূত্র বার · Jhargram, WB</div>
+  </div>
+  <div class="footer-links">
+    <a href="#hero">Home</a>
+    <a href="#menu">Menu</a>
+    <a href="#about">About</a>
+    <a href="tel:09002696524">Call Us</a>
+  </div>
+  <div class="footer-copy">
+    © 2025 Cafe Chai Sutta Bar<br>
+    <span style="font-size:.65rem;opacity:.6">Made with ☕ & desi love</span>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(r => obs.observe(r));
+
+  // Form
+  function submitForm(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('button');
+    btn.textContent = '⏳ Bhej rahe hain...';
+    btn.disabled = true;
+    setTimeout(() => {
+      document.getElementById('formSuccess').style.display = 'block';
+      btn.style.display = 'none';
+    }, 1000);
+  }
+</script>
+</body>
+</html>
